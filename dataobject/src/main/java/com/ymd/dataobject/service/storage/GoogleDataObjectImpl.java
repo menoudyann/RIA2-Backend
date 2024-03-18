@@ -7,6 +7,7 @@ import com.ymd.dataobject.exception.ObjectNotFoundException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
 import java.io.File;
@@ -58,20 +59,13 @@ public class GoogleDataObjectImpl implements IDataObject {
     }
 
     @Override
-    public void upload(URI localFullPath, URI remoteFullPath) throws Exception {
+    public void upload(byte[] file, URI remoteFullPath) throws Exception {
         String bucketName = remoteFullPath.getHost();
         String objectName = remoteFullPath.getPath().substring(1);
 
-        Path path = Paths.get(localFullPath);
-
-        File file = path.toFile();
-        if (!file.exists()) {
-            System.out.println("File not found");
-        }
-
         BlobId blobId = BlobId.of(bucketName, objectName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).build();
-        storage.createFrom(blobInfo, path);
+        storage.createFrom(blobInfo, new ByteArrayInputStream(file), Storage.BlobWriteOption.crc32cMatch());
     }
 
     @Override

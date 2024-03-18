@@ -9,7 +9,7 @@ public interface IDataObject {
 
     public boolean doesExist(URI remoteFullPath);
 
-    public void upload(URI localFullPath, URI remoteFullPath) throws Exception;
+    public void upload(byte[] file, URI remoteFullPath) throws Exception;
 
     public void download(URI localFullPath, URI remoteFullPath) throws ObjectNotFoundException;
 

@@ -9,5 +9,4 @@ public class DataobjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DataobjectApplication.class, args);
 	}
-
 }

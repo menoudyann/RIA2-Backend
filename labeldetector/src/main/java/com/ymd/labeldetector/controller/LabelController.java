@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+
 @RestController
+@CrossOrigin
 public class LabelController {
 
     private ILabelDetector labelDetector;
@@ -20,6 +22,8 @@ public class LabelController {
 
     @PostMapping("/api/v1/labeldetector/analyze")
     public String analyze(@RequestBody AnalyzeRequest request) throws IOException, URISyntaxException {
+        int maxLabels = request.getMaxLabels();
+        float minConfidenceLevel = request.getMinConfidenceLevel();
         return labelDetector.analyze(new URL(request.getRemoteFullPath()));
     }
 }
