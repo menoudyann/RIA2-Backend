@@ -20,16 +20,19 @@ import java.util.List;
 public class GoogleLabelDetectorImpl implements ILabelDetector {
 
     protected ImageAnnotatorClient client;
+    protected int defaultMaxLabels;
+    protected float defaultMinConfidenceLevel;
 
     public GoogleLabelDetectorImpl() {
         Dotenv dotenv = Dotenv.configure()
                 .directory("./labelDetector")
                 .load();
-
         try {
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(dotenv.get("GOOGLE_APPLICATION_CREDENTIALS"))).createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
             ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder().setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
             client = ImageAnnotatorClient.create(settings);
+            defaultMaxLabels = Integer.parseInt(dotenv.get("DEFAULT_MAX_LABELS"));
+            defaultMinConfidenceLevel = Float.parseFloat(dotenv.get("DEFAULT_MAX_LABELS"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -37,17 +40,17 @@ public class GoogleLabelDetectorImpl implements ILabelDetector {
 
     @Override
     public String analyze(URL remoteFullPath) throws IOException, URISyntaxException {
-        return analyze(remoteFullPath, 10, 90);
+        return analyze(remoteFullPath, defaultMaxLabels, defaultMinConfidenceLevel);
     }
 
     @Override
     public String analyze(URL remoteFullPath, int maxLabels) throws IOException, URISyntaxException {
-        return analyze(remoteFullPath, maxLabels, 90);
+        return analyze(remoteFullPath, maxLabels, defaultMinConfidenceLevel);
     }
 
     @Override
     public String analyze(URL remoteFullPath, float minConfidenceLevel) throws IOException, URISyntaxException {
-        return analyze(remoteFullPath, 10, minConfidenceLevel);
+        return analyze(remoteFullPath, defaultMaxLabels, minConfidenceLevel);
     }
 
     @Override
