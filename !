@@ -1,0 +1,15 @@
+fix the missing parameter minConfidence
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Mon Mar 18 20:12:25 2024 +0100
+#
+# On branch main
+# Your branch is up to date with 'origin/main'.
+#
+# Changes to be committed:
+#	modified:   labeldetector/src/main/java/com/ymd/labeldetector/controller/LabelController.java
+#	modified:   labeldetector/src/main/java/com/ymd/labeldetector/model/AnalyzeRequest.java
+#	modified:   labeldetector/src/main/java/com/ymd/labeldetector/service/vision/GoogleLabelDetectorImpl.java
+#
