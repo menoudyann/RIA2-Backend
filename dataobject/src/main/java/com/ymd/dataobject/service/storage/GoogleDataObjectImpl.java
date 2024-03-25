@@ -10,9 +10,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.nio.file.Paths;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
@@ -21,12 +19,12 @@ import java.util.concurrent.TimeUnit;
 public class GoogleDataObjectImpl implements IDataObject {
 
     private Storage storage;
+    private Dotenv dotenv;
 
     public GoogleDataObjectImpl() {
-        Dotenv dotenv = Dotenv.configure()
+        dotenv = Dotenv.configure()
                 .directory("./dataobject")
                 .load();
-
         try {
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(dotenv.get("GOOGLE_APPLICATION_CREDENTIALS"))).createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
             storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
