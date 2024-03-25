@@ -10,9 +10,27 @@ Here are the prerequisites for finding work on the project.
 - Eclipe Temurin version 21.0.1
 - jUnit 5.8.1
 
+## How to run all the microservices infrastructure
+
+My infrastructure includes the two microservices described earlier, labelDetector and dataObject, as well as several other essential components such as a Configuration Server, an API Gateway, and a Discovery Server. Together, these services constitute the entirety of my backend, providing a comprehensive and integrated solution for managing and routing requests, configuration management, and service discovery.
+
+To run all my backend infrastructure, follow these steps :
+
+Go to each microservice folder (starting with the config-server) and execute the following command
+```
+mvn spring-boot:run
+```
+
 ## DataObject
 
 This Java microservice offers essential functionalities for Google Cloud Storage, such as file upload/download, existence checks, URL publishing, and deletion operations. It's designed for efficient cloud storage management with easy URI-based interactions.
+
+### Endpoints
+
+*GET* `/api/v1/dataobject/publish`
+
+*POST*
+`/api/v1/dataobject/upload`
 
 ### Deployment
 
@@ -75,6 +93,10 @@ mvn clean package
 ### Description
 
 This Java microservice uses Google Cloud Vision API to extract labels from images, offering customizable label limits and confidence thresholds. It outputs concise, JSON-formatted label data.
+
+### Endpoints
+
+*POST* `/api/v1/labeldetector/analyze`
 
 ### Configuration
 
