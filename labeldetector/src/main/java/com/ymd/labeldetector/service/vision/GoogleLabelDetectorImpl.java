@@ -24,9 +24,7 @@ public class GoogleLabelDetectorImpl implements ILabelDetector {
     protected float defaultMinConfidenceLevel;
 
     public GoogleLabelDetectorImpl() {
-        Dotenv dotenv = Dotenv.configure()
-                .directory("./labelDetector")
-                .load();
+        Dotenv dotenv = Dotenv.load();
         try {
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(dotenv.get("GOOGLE_APPLICATION_CREDENTIALS"))).createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
             ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder().setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();

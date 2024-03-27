@@ -22,9 +22,7 @@ public class GoogleDataObjectImpl implements IDataObject {
     private Dotenv dotenv;
 
     public GoogleDataObjectImpl() {
-        dotenv = Dotenv.configure()
-                .directory("./dataobject")
-                .load();
+        dotenv = Dotenv.load();
         try {
             GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(dotenv.get("GOOGLE_APPLICATION_CREDENTIALS"))).createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
             storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();

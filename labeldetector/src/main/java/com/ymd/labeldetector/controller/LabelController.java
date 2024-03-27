@@ -24,8 +24,6 @@ public class LabelController {
     public String analyze(@RequestBody AnalyzeRequest request) throws IOException, URISyntaxException {
         int maxLabels = request.getMaxLabels();
         float minConfidenceLevel = request.getMinConfidence();
-        System.out.println("maxLabels: " + maxLabels);
-        System.out.println("minConfidence: " + minConfidenceLevel);
         return labelDetector.analyze(new URL(request.getRemoteFullPath()), maxLabels, minConfidenceLevel);
     }
 }

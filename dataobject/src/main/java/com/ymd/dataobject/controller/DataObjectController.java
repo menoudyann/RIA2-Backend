@@ -27,9 +27,7 @@ public class DataObjectController {
 
     public DataObjectController() {
         this.dataObject = new GoogleDataObjectImpl();
-        dotenv = Dotenv.configure()
-                .directory("./dataobject")
-                .load();
+        dotenv = Dotenv.load();
     }
 
     @GetMapping("/api/v1/dataobject/publish")
@@ -59,3 +57,4 @@ public class DataObjectController {
         return ResponseEntity.ok().body(response);
     }
 }
+
